@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CRYPTRAIDER_API UGrabber : public USceneComponent
@@ -24,7 +24,20 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	void Object_Grab();
+	UFUNCTION(BlueprintCallable)
+	void Release_Grab();
+	
 private:
 	UPROPERTY(EditAnywhere)
 	float MaxGrabDistance = 400.f; // cm 단위임
+	UPROPERTY(EditAnywhere)
+	float GrabRadius = 100.f; // cm 단위임
+	UPROPERTY(EditAnywhere)
+	float HoldDistance = 200.f; // cm 단위임
+
+	UPhysicsHandleComponent* GetPhysicsHandle() const;
+
+	bool GetGrabbableInReach(FHitResult& OutHitResult) const;
 };
