@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "Mover.generated.h"
+#include "Components/SceneComponent.h"
+#include "Grabber.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UMover : public UActorComponent
+class CRYPTRAIDER_API UGrabber : public USceneComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UMover();
+	UGrabber();
 
 protected:
 	// Called when the game starts
@@ -26,14 +26,5 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	FVector OriginLocation; // 초기 위치
-
-	UPROPERTY(EditAnywhere)
-	FVector MoveOffset; // 얼마나 움직일지 
-
-	UPROPERTY(EditAnywhere)
-	float MoveTime = 4.f; // 동작하는 시간
-
-	UPROPERTY(EditAnywhere)
-	bool ShouldMove = false; // 움직일지 여부 
+	float MaxGrabDistance = 400.f; // cm 단위임
 };
