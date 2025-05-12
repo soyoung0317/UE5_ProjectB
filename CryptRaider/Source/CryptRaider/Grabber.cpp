@@ -56,6 +56,9 @@ void UGrabber::Object_Grab()
 		// 처음 물제를 잡는순간 위치를 지정하는함수 = 처음 물체를 붙잡을때 실행해야하는 필수함수 
 		// 매 프레임마다 어디로 끌고갈지 지시해줘야 따라온다. = Tick에서 수행해야함
 		PhysicsHandle->GrabComponentAtLocationWithRotation(HitComponent, NAME_None, HitResult.ImpactPoint, GetComponentRotation());
+
+		// 잡고있는중임을 알리는 태그 추가 
+		HitResult.GetActor()->Tags.Add("Grabbed");
 	}
 
 
@@ -69,6 +72,7 @@ void UGrabber::Release_Grab()
 
 	if (PhysicsHandle && PhysicsHandle->GetGrabbedComponent())
 	{
+		PhysicsHandle->GetGrabbedComponent()->GetOwner()->Tags.Remove("Grabbed");
 		PhysicsHandle->ReleaseComponent();
 	}
 }

@@ -4,18 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
-#include "TriggerComponent.generated.h"
+#include "Mover.h"
+#include "KeyTrigger.generated.h"
 
 /**
  * 
  */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class CRYPTRAIDER_API UTriggerComponent : public UBoxComponent
+class CRYPTRAIDER_API UKeyTrigger : public UBoxComponent
 {
 	GENERATED_BODY()
 	
 public:	
-	UTriggerComponent();
+	UKeyTrigger();
 
 protected:
 	// Called when the game starts
@@ -25,4 +26,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetMover(UMover* NewMover);
+
+private:
+	UPROPERTY(EditAnywhere)
+	FName AcceptableActorTag = "UnlockKey";
+
+	UMover* Mover;
+	AActor* GetAcceptableActor() const;
 };
